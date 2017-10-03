@@ -1,11 +1,14 @@
 <!-- Go Back to job index -->
 <a class="btn btn-default" href="/index.php?r=job">Go Back</a>
 <h2 class="page-header"><?php echo $job->title; ?> <small>Located in <?php echo $job->city; ?> <?php echo $job->state; ?></small>
-    <!-- Edit and Delete Buttons -->
-    <span class="pull-right">
-        <a href="index.php?r=job/edit&id=<?php echo $job->id; ?>" class="btn btn-warning">Edit</a>
-        <a href="index.php?r=job/delete&id=<?php echo $job->id; ?>" class="btn btn-danger">Delete</a>
-    </span>
+    <!-- Check for Ownership of posting before rendering edit/delete buttons -->
+    <?php if(Yii::$app->user->identity->id == $job->user_id) : ?>
+        <!-- Edit and Delete Buttons -->
+        <span class="pull-right">
+            <a href="index.php?r=job/edit&id=<?php echo $job->id; ?>" class="btn btn-warning">Edit</a>
+            <a href="index.php?r=job/delete&id=<?php echo $job->id; ?>" class="btn btn-danger">Delete</a>
+        </span>
+    <?php endif; ?>
 </h2>
 <!-- Display Job Description if one exists -->
 <?php if(!empty($job->description)) : ?>
